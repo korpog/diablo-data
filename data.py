@@ -1,4 +1,5 @@
 import json
+import csv
 import requests
 from datetime import datetime
 from oauthlib.oauth2 import BackendApplicationClient
@@ -35,19 +36,27 @@ def get_data(region, class_name, season, gamemode=''):
     return data
 
 def process_data():
-    data = get_data('us', 'dh', 1)
-    with open('dh.json', 'w') as file:
-        json.dump(data, file)
+    """ Read data and write them to a csv file"""
+    data = get_data('us', 'dh', 16)
     records = []
     for row in data['row']:
         battletag = row['player'][0]['data'][0].get('string', 'unknown')
+        paragon = row['player'][0]['data'][5]['number']
         rank = row['data'][0]['number']
         rift_level = row['data'][1]['number']
         time = row['data'][2]['timestamp']
         date = row['data'][3]['timestamp']
         date = datetime.fromtimestamp(date / 1e3)
-        record = {'Rank': rank, 'Rift level': rift_level, 'Time': time, 'Completed on': date.strftime("%c"), 'Battletag': battletag}
+        record = {'Battletag': battletag, 'Paragon': paragon, 'Rank': rank, 'Rift level': rift_level,
+         'Time': time, 'Completed on': date.strftime("%Y-%m-%d")}
         records.append(record)
-    print(records[:2])
+    
+    with open('us-dh-16.csv', mode='w') as csv_file:
+        fieldnames = ['Battletag', 'Paragon', 'Rank', 'Rift level', 'Time', 'Completed on']
+        writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for record in records:
+            writer.writerow(record)
 
 process_data()
