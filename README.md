@@ -6,7 +6,7 @@ in the project directory with the following content:
 {"CLIENT_ID": "YOUR_CLIENT_ID",
 "CLIENT_SECRET": "YOUR_CLIENT_SECRET"}
 ```  
-You can get it at https://develop.battle.net/  
+You can get these credentials at https://develop.battle.net/  
 
 ***
 Each record in the csv file contains:  
@@ -29,5 +29,5 @@ __Histograms__ showing distribution of paragon levels and Rift times (in millise
 (most players seem to be in the 1500-2000 paragon level range)
 ![alt text](https://github.com/korpog/diablo-data/blob/master/img/time_paragon_hist.png "Histograms")
 
-Bar plot showing number of records per week (e.g. 5 is the first week of February)  
+__Bar plot__ showing number of records per week (e.g. 5 is the first week of February)  
 ![alt text](https://github.com/korpog/diablo-data/blob/master/img/records_per_week.png "Records per week")
